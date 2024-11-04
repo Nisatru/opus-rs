@@ -533,6 +533,18 @@ impl Decoder {
 	// ------------
 	// Generic CTLs
 
+	/// Configures the decoder's computational complexity.
+	pub fn set_complexity(&mut self, value: i32) -> Result<()> {
+		dec_ctl!(self, ffi::OPUS_SET_COMPLEXITY_REQUEST, value);
+		Ok(())
+	}
+	/// Gets the decoder's complexity configuration.
+	pub fn get_complexity(&mut self) -> Result<i32> {
+		let mut value: i32 = 0;
+		dec_ctl!(self, ffi::OPUS_GET_COMPLEXITY_REQUEST, &mut value);
+		Ok(value)
+	}
+
 	/// Reset the codec state to be equivalent to a freshly initialized state.
 	pub fn reset_state(&mut self) -> Result<()> {
 		dec_ctl!(self, ffi::OPUS_RESET_STATE);
